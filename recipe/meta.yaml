@@ -1,6 +1,6 @@
-{% set name = "argon2_cffi" %}
-{% set version = "19.1.0" %}
-{% set sha256 = "81548a27b919861040cb928a350733f4f9455dd67c7d1ba92eb5960a1d7f8b26" %}
+{% set name = "argon2-cffi" %}
+{% set version = "20.1.0" %}
+{% set sha256 = "d8029b2d3e4b4cea770e9e5a0104dd8fa185c1724a0f01528ae4826a6d25f97d" %}
 
 package:
   name: {{ name|lower }}
@@ -12,17 +12,18 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+  number: 1
+  script:
+    - ln -sf $RANLIB $BUILD_PREFIX/bin/ranlib  # [unix]
+    - {{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
-    - {{ compiler('c') }}
+    - {{ compiler("c") }}
 
   host:
     - python
     - pip
-    - setuptools
     - six
     - cffi >=1.0.0
     - enum34  # [py27]
@@ -32,18 +33,20 @@ requirements:
     - six
     - cffi >=1.0.0
     - enum34  # [py27]
+  run_constrained:
+    # avoiding argon2-cffi and argon2_cffi to be installed in parallel
+    - argon2_cffi ==999
 
 test:
   imports:
     - argon2
-
 
 about:
   home: https://argon2-cffi.readthedocs.org/
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: 'The secure Argon2 password hashing algorithm.'
+  summary: The secure Argon2 password hashing algorithm.
   description: |
     Argon2 won the Password Hashing Competition and argon2_cffi is the simplest
     way to use it in Python and PyPy
