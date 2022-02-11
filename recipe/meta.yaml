@@ -17,8 +17,10 @@ build:
 requirements:
   host:
     - python
-    - pip
     - flit-core >=3.4,<4
+    - pip
+    - setuptools
+    - wheel
   run:
     - python >=3.6
     - argon2-cffi-bindings
