@@ -16,14 +16,13 @@ build:
 
 requirements:
   host:
-    - python >=3.6
+    - python
     - pip
     - flit-core >=3.4,<4
-
   run:
     - python >=3.6
-    - flit-core >=3.4,<4
     - argon2-cffi-bindings
+    - typing-extensions
 
   run_constrained:
     # avoiding argon2-cffi and argon2_cffi to be installed in parallel
