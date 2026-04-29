@@ -4,4 +4,3 @@ upstream_sources:
       identifier: argon2-cffi
     packages:
       - argon2-cffi
-      - argon2_cffi
